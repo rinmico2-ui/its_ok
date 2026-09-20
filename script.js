@@ -187,6 +187,7 @@ function goTo(id) {
         currentSection = id;
         nxt.scrollTop = 0;
         if (id !== 'sec-opening') $('#bottom-bar').classList.remove('hidden');
+        if (id === 'sec-game') startGame();
     }, 350);
 }
 
@@ -549,12 +550,16 @@ function initGame() {
 }
 
 function startGame() {
+    clearInterval(gameInterval);
     gameScore=0; gameActive=true;
     $('#game-score').textContent='0';
     $('#game-message').textContent='';
+    $('#game-message').style.fontSize='';
     $('#btn-game-done').classList.add('hidden');
     const area=$('#game-area');
-    area.querySelectorAll('.game-item').forEach(e=>e.remove());
+    area.querySelectorAll('.game-item, .catch-msg, .confetti-piece').forEach(e=>e.remove());
+    $('#capy-game').className='capybara capy-game';
+    spawnItem();
     gameInterval=setInterval(spawnItem,900);
 }
 function spawnItem() {
